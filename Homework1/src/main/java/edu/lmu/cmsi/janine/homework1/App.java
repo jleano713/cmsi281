@@ -15,13 +15,13 @@ public class App {
   	double length = 5.0;
   	double radius = 5.0;
   	
-  	Point point1 = new Point(1.0, 1.0);
+  	Point point1 = new Point(10.0, 10.0);
   	Point point2 = new Point(2.0, 2.0);
   	Line line = new Line(point1, point2);
     Square square = new Square(point1, length);
     Rectangle rectangle = new Rectangle(point1, height, width);
     Circle circle = new Circle(point1, radius);
-    RightTriangle rightTriangle = new RightTriangle(point1, height, base);
+    RightTriangle rightTriangle = new RightTriangle(point1, base, height);
 
     System.out.println("Point #1 successfully created: " + point1.toString());
     System.out.println("Point #2 successfully created: " + point2.toString());
