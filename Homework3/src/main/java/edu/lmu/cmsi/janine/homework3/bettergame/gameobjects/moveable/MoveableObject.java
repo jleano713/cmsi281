@@ -23,6 +23,10 @@ public abstract class MoveableObject {
 		return this.location;
 	}
 	
+	public Displacement getDisplacement() {
+		return this.displacement;
+	}
+		
 	public int getX() {
 		return this.location.getX();
 	}

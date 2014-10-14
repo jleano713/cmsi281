@@ -10,6 +10,10 @@ public class Displacement {
     	this.dY = dY;
   	}
 
+	public Displacement getDisplacement() {
+		return this;
+	}
+	
   	public int getXDisplacement() {
     	return this.dX;
   	}
