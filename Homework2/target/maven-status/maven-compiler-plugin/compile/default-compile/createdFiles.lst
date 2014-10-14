@@ -1,7 +1,7 @@
-edu/lmu/cmsi/janine/homework1/shape/Circle.class
-edu/lmu/cmsi/janine/homework1/shape/Rectangle.class
-edu/lmu/cmsi/janine/homework1/App.class
-edu/lmu/cmsi/janine/homework1/shape/Square.class
-edu/lmu/cmsi/janine/homework1/shape/parts/Line.class
-edu/lmu/cmsi/janine/homework1/shape/parts/Point.class
-edu/lmu/cmsi/janine/homework1/shape/RightTriangle.class
+edu/lmu/cmsi/janine/homework2/shape/Circle.class
+edu/lmu/cmsi/janine/homework2/shape/RightTriangle.class
+edu/lmu/cmsi/janine/homework2/shape/parts/Point.class
+edu/lmu/cmsi/janine/homework2/App.class
+edu/lmu/cmsi/janine/homework2/shape/Square.class
+edu/lmu/cmsi/janine/homework2/shape/Rectangle.class
+edu/lmu/cmsi/janine/homework2/shape/parts/Line.class
