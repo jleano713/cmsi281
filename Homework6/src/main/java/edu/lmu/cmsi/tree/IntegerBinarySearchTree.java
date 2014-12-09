@@ -21,7 +21,6 @@ public class IntegerBinarySearchTree {
   public void insert(int value) {
   	this.root = insert(this.root, value);
   }
-  
   private BinaryTreeNode insert(BinaryTreeNode current, int value) {
     if (current == null) {
     	return new BinaryTreeNode(value);
@@ -46,8 +45,8 @@ public class IntegerBinarySearchTree {
    *
    */
   public int findSmallestValue() {
-  	BinaryTreeNode current = root;
-    if (root == null) {
+	BinaryTreeNode current = this.root;
+    if (current == null) {
     	throw new ItemNotFoundException();
     }
     else {
@@ -66,8 +65,8 @@ public class IntegerBinarySearchTree {
    *
    */
   public int findLargestValue() {
-    BinaryTreeNode current = root;
-    if (root == null) {
+    BinaryTreeNode current = this.root;
+    if (current == null) {
     	throw new ItemNotFoundException();
     }
     else {
@@ -85,20 +84,19 @@ public class IntegerBinarySearchTree {
    */
   public boolean contains(int value) {
 	return contains(root, value);
-  }
-  
-  private boolean contains(BinaryTreeNode current, int x) {
+  } 
+  private boolean contains(BinaryTreeNode current, int value) {
   	if (current == null) {
   		return false;
   	}
-  	if (current.getValue() == x) {
+  	if (current.getValue() == value) {
   		return true;
   	}
-  	else if (current.getValue() > x) {
-  		return this.contains(current.getLeft(), x);
+  	else if (current.getValue() > value) {
+  		return this.contains(current.getLeft(), value);
   	}
   	else {
-  		return contains(current.getRight(), x);
+  		return contains(current.getRight(), value);
   	}
   }
 
@@ -115,7 +113,6 @@ public class IntegerBinarySearchTree {
     }
     return array;
   }
-  
   private ArrayList<Integer> toPreOrder(BinaryTreeNode current) {
   	ArrayList<Integer> temp = new ArrayList<Integer>();
   	if (current == null) {
@@ -140,7 +137,6 @@ public class IntegerBinarySearchTree {
     }
     return array;
   }
-  
   private ArrayList<Integer> toInOrder(BinaryTreeNode current) {
   	ArrayList<Integer> temp = new ArrayList<Integer>();
   	if (current == null) {
@@ -165,7 +161,6 @@ public class IntegerBinarySearchTree {
     }
     return array;
   }
-  
   private ArrayList<Integer> toPostOrder(BinaryTreeNode current) {
   	ArrayList<Integer> temp = new ArrayList<Integer>();
   	if (current == null) {
@@ -190,7 +185,6 @@ public class IntegerBinarySearchTree {
     }
     return array;
   }
-  
   private ArrayList<Integer> toBreadthFirstOrder(BinaryTreeNode current) {
   	Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
   	ArrayList<Integer> temp = new ArrayList<Integer>();
