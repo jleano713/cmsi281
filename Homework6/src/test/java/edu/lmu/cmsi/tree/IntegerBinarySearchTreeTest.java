@@ -21,14 +21,6 @@ public class IntegerBinarySearchTreeTest {
   public void basicInsertTest() {
     this.tree.insert(10);
   }
-  
-  @Test
-  public void basicInsertTest2() {
-    int[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
-  }
 
   @Test(expected = DuplicateItemException.class)
   public void insertDuplicateTest() {

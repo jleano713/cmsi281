@@ -2,11 +2,12 @@ package edu.lmu.cmsi.tree;
 
 import edu.lmu.cmsi.tree.node.BinaryTreeNode;
 import edu.lmu.cmsi.tree.exception.*;
+import java.util.*;
 
 public class IntegerBinarySearchTree {
 
   protected BinaryTreeNode root;
-
+  
   public IntegerBinarySearchTree() {
     this.root = null;
   }
@@ -17,39 +18,24 @@ public class IntegerBinarySearchTree {
    * @param x the item to insert.
    * @throws edu.lmu.cmsi.tree.exception.DuplicateItemException if x exists.
    */
-  public void insert(int x) {
-    BinaryTreeNode temp = new BinaryTreeNode(x);
-    BinaryTreeNode current = root;
+  public void insert(int value) {
+  	this.root = insert(this.root, value);
+  }
+  
+  private BinaryTreeNode insert(BinaryTreeNode current, int value) {
     if (current == null) {
-    	current = new BinaryTreeNode(x);
+    	return new BinaryTreeNode(value);
     }
-    else {	
-    	if (current.getValue() == x) {
-    		throw new DuplicateItemException();
-    	}
-    	else if (current.getValue() > x) {
-    		if (current.getLeft() == null) {
-    			current.getLeft().setLeft(temp);
-    		}
-    		else {
-    			while (current.getLeft() != null) {
-    				current = current.getLeft();
-    			}
-    			current.getLeft().setLeft(temp);
-    		}
-    	}
-    	else {
-    		if (current.getRight() == null) {
-    			current.getRight().setLeft(temp);
-    		}
-    		else {
-    			while (current.getRight() != null) {	
-    				current = current.getRight();
-    			}
-    			current.getRight().setRight(temp);
-    		}
-   		 }
-   	}
+    if (current.getValue() == value) {
+    	throw new DuplicateItemException();
+    }
+    else if (current.getValue() > value) {
+    	current.setLeft(insert(current.getLeft(), value));
+    }
+    else {
+    	current.setRight(insert(current.getRight(), value));
+    }
+    return current;
   }
 
   /**
@@ -60,18 +46,15 @@ public class IntegerBinarySearchTree {
    *
    */
   public int findSmallestValue() {
+  	BinaryTreeNode current = root;
     if (root == null) {
     	throw new ItemNotFoundException();
-    }
-    BinaryTreeNode current = root;
-    if (current.getLeft() == null) {
-    	return current.getValue();
     }
     else {
     	while (current.getLeft() != null) {
     		current = current.getLeft();
     	}
-    return current.getValue();
+    	return current.getValue();
     }
   }
 
@@ -83,14 +66,16 @@ public class IntegerBinarySearchTree {
    *
    */
   public int findLargestValue() {
+    BinaryTreeNode current = root;
     if (root == null) {
     	throw new ItemNotFoundException();
     }
-    BinaryTreeNode current = root;
-    while (current.getRight() != null) {
-    	current = current.getRight();
+    else {
+     	while (current.getRight() != null) {
+    		current = current.getRight();
+    	}
+    	return current.getValue();
     }
-    return current.getValue();
   }
 
   /**
@@ -99,31 +84,22 @@ public class IntegerBinarySearchTree {
    * @return true if the value exists, false otherwise
    */
   public boolean contains(int value) {
-	if (root == null) {
-		return false;
-	}
-	BinaryTreeNode current = root;
-	if (current.getValue() == value) {
-		return true;
-	}
-	if (current.getValue() > value) {
-		while (current != null) {
-			if (current.getLeft().getValue() == value) {
-				return true;
-			}
-			current = current.getLeft();
-		}
-		return false;
-	}
-	else {
-		while (current != null) {
-			if (current.getRight().getValue() == value) {
-				return true;
-			}
-			current = current.getRight();
-		}
-		return false;
-	}
+	return contains(root, value);
+  }
+  
+  private boolean contains(BinaryTreeNode current, int x) {
+  	if (current == null) {
+  		return false;
+  	}
+  	if (current.getValue() == x) {
+  		return true;
+  	}
+  	else if (current.getValue() > x) {
+  		return this.contains(current.getLeft(), x);
+  	}
+  	else {
+  		return contains(current.getRight(), x);
+  	}
   }
 
   /**
@@ -132,7 +108,23 @@ public class IntegerBinarySearchTree {
    * @return an array of Integers, or empty if the tree is empty.
    */
   public Integer[] toPreOrder() {
-    throw new UnsupportedOperationException("toPreOrder needs to be implemented");
+    ArrayList<Integer> temp = toPreOrder(this.root);
+    Integer[] array = new Integer[temp.size()];
+    for (int i = 0; i < temp.size(); i++) {
+    	array[i] = temp.get(i);
+    }
+    return array;
+  }
+  
+  private ArrayList<Integer> toPreOrder(BinaryTreeNode current) {
+  	ArrayList<Integer> temp = new ArrayList<Integer>();
+  	if (current == null) {
+  		return temp;
+  	}
+  	temp.add(current.getValue());
+  	temp.addAll(toPreOrder(current.getLeft()));
+  	temp.addAll(toPreOrder(current.getRight()));
+  	return temp;
   }
 
   /**
@@ -141,7 +133,23 @@ public class IntegerBinarySearchTree {
    * @return an array of Integers, or empty if the tree is empty.
    */
   public Integer[] toInOrder() {
-    throw new UnsupportedOperationException("toInOrder needs to be implemented");
+    ArrayList<Integer> temp = toInOrder(this.root);
+    Integer[] array = new Integer[temp.size()];
+    for (int i = 0; i < temp.size(); i++) {
+    	array[i] = temp.get(i);
+    }
+    return array;
+  }
+  
+  private ArrayList<Integer> toInOrder(BinaryTreeNode current) {
+  	ArrayList<Integer> temp = new ArrayList<Integer>();
+  	if (current == null) {
+  		return temp;
+  	}
+  	temp.addAll(toInOrder(current.getLeft()));
+  	temp.add(current.getValue());
+  	temp.addAll(toInOrder(current.getRight()));
+  	return temp;
   }
 
   /**
@@ -150,7 +158,23 @@ public class IntegerBinarySearchTree {
    * @return an array of Integers, or empty if the tree is empty.
    */
   public Integer[] toPostOrder() {
-    throw new UnsupportedOperationException("toPostOrder needs to be implemented");
+    ArrayList<Integer> temp = toPostOrder(this.root);
+    Integer[] array = new Integer[temp.size()];
+    for (int i = 0; i < temp.size(); i++) {
+    	array[i] = temp.get(i);
+    }
+    return array;
+  }
+  
+  private ArrayList<Integer> toPostOrder(BinaryTreeNode current) {
+  	ArrayList<Integer> temp = new ArrayList<Integer>();
+  	if (current == null) {
+  		return temp;
+  	}
+  	temp.addAll(toPostOrder(current.getLeft()));
+  	temp.addAll(toPostOrder(current.getRight()));
+  	temp.add(current.getValue());
+  	return temp;
   }
 
   /**
@@ -159,6 +183,34 @@ public class IntegerBinarySearchTree {
    * @return an array of Integers, or empty if the tree is empty.
    */
   public Integer[] toBreadthFirstOrder() {
-    throw new UnsupportedOperationException("toBreadthFirstOrder needs to be implemented");
+    ArrayList<Integer> temp = toBreadthFirstOrder(this.root);
+    Integer[] array = new Integer[temp.size()];
+    for (int i = 0; i < temp.size(); i++) {
+    	array[i] = temp.get(i);
+    }
+    return array;
   }
+  
+  private ArrayList<Integer> toBreadthFirstOrder(BinaryTreeNode current) {
+  	Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+  	ArrayList<Integer> temp = new ArrayList<Integer>();
+  	if (current == null) {
+  		return temp;
+  	}
+  	queue.add(current);
+  	while (!(queue.isEmpty())) {
+  		BinaryTreeNode node = queue.remove();
+  		temp.add(node.getValue());
+  		if (node != null) {
+  			if (node.getLeft() != null) {
+  				queue.add(node.getLeft());
+  			}
+  			if (node.getRight() != null) {
+  				queue.add(node.getRight());
+  			}
+  		}
+  	}
+  	return temp;
+  }
+    
 }
